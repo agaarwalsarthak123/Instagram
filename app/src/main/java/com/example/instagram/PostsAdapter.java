@@ -12,8 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.instagram.activities.DetailsActivity;
+import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 import com.example.instagram.activities.DetailsActivity;
+import com.example.instagram.models.Post;
 
 import org.parceler.Parcels;
 
@@ -61,6 +65,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private TextView tvTimePosted;
+        private ImageView ivProfile;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -69,6 +74,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTimePosted = itemView.findViewById(R.id.tvTimePosted);
+            ivProfile = itemView.findViewById(R.id.ivProfileImage);
             itemView.setOnClickListener(this);
         }
 
@@ -83,6 +89,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
+            ParseFile profile = post.getUser().getParseFile("profilePic");
+            if (image != null) {
+                //Glide.with(context).load(profile.getUrl()).transform(new CircleCrop()).into(ivProfile);
             }
         }
 
